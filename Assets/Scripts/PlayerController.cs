@@ -12,6 +12,10 @@ namespace Vega
         public KeyCode moveRight = KeyCode.D;
         public KeyCode shoot = KeyCode.E;
 
+        public StarController prefab;
+        public Vector2 directionalVelocity;
+        public float turbulence;
+
         void Start()
         {
             transform.position = new Vector2(0f, GameBounds.instance.minY + 0.5f);
@@ -60,7 +64,7 @@ namespace Vega
             if(currentCooldown < 0f && Input.GetKey(shoot))
             {
                 currentCooldown = starCreationCooldown;
-                StarSystem.instance.Add(0, transform.position);
+                StarSystem.instance.Add(transform.position, prefab, directionalVelocity, turbulence);
             }
         }
     }

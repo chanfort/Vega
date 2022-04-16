@@ -11,6 +11,10 @@ namespace Vega
         public int maxStars = 4000;
         public int maxScore = 50000;
 
+        public StarController prefab;
+        public Vector2 directionalVelocity;
+        public float turbulence;
+
         void Start()
         {
 
@@ -38,7 +42,7 @@ namespace Vega
             {
                 currentCooldown = starCreationCooldown;
                 Vector2 pos = new Vector2(Random.Range(GameBounds.instance.minX, GameBounds.instance.maxX), GameBounds.instance.maxY);
-                StarSystem.instance.Add(1, pos);
+                StarSystem.instance.Add(pos, prefab, directionalVelocity, turbulence);
             }
         }
     }

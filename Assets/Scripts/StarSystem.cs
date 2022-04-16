@@ -7,9 +7,8 @@ namespace Vega
     {
         public static StarSystem instance;
 
-        public StarControllerPrefab[] starPrefabs;
-        public List<StarController> starInstances = new List<StarController>();
-        public List<Vector2> starPositions = new List<Vector2>();
+        [HideInInspector] public List<StarController> starInstances = new List<StarController>();
+        [HideInInspector] public List<Vector2> starPositions = new List<Vector2>();
 
         void Awake()
         {
@@ -54,12 +53,11 @@ namespace Vega
             }
         }
 
-        public void Add(int id, Vector3 pos)
+        public void Add(Vector3 pos, StarController starPrefab, Vector2 directionalVelocity, float turbulence)
         {
-            StarController starPrefab = starPrefabs[id].prefab;
             StarController star = Instantiate(starPrefab, pos, Quaternion.identity);
             star.starSystemIndex = starInstances.Count;
-            star.velocity = starPrefabs[id].directionalVelocity + Random.insideUnitCircle * starPrefabs[id].turbulence;
+            star.velocity = directionalVelocity + Random.insideUnitCircle * turbulence;
 
             starInstances.Add(star);
             starPositions.Add(pos);
@@ -96,13 +94,5 @@ namespace Vega
                 }
             }
         }
-    }
-    
-    [System.Serializable]
-    public class StarControllerPrefab
-    {
-        public StarController prefab;
-        public Vector2 directionalVelocity;
-        public float turbulence;
     }
 }
