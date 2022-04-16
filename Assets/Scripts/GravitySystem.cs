@@ -10,6 +10,7 @@ namespace Vega
     public class GravitySystem : MonoBehaviour
     {
         bool useRegular;
+        public float forceCoeficient = 0.001f;
 
         void Start()
         {
@@ -53,7 +54,8 @@ namespace Vega
             {
                 positions = positions,
                 velocities = velocities,
-                nTotal = n
+                nTotal = n,
+                forceCoeficient = forceCoeficient
             }.Schedule(n, System.Environment.ProcessorCount).Complete();
 
             for (int i = 0; i < n; i++)
@@ -92,7 +94,7 @@ namespace Vega
                 }
 
                 float timestep = 0.5f;
-                instances[i].velocity += timestep * 0.001f * dv;
+                instances[i].velocity += timestep * forceCoeficient * dv;
             }
         }
 
@@ -101,7 +103,8 @@ namespace Vega
         {
             [NativeDisableParallelForRestriction] [ReadOnly] public NativeArray<float2> positions;
             [NativeDisableParallelForRestriction] public NativeArray<float2> velocities;
-            public int nTotal;
+            [ReadOnly] public int nTotal;
+            [ReadOnly] public float forceCoeficient;
 
             public void Execute(int i)
             {
@@ -122,7 +125,7 @@ namespace Vega
                 }
 
                 float timestep = 0.5f;
-                velocities[i] += timestep * 0.001f * dv;
+                velocities[i] += timestep * forceCoeficient * dv;
             }
         }
     }

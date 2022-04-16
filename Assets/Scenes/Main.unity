@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3e044f74b4ff48f88da3f5246b1a611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceCoeficient: 0.001
 --- !u!4 &640049042
 Transform:
   m_ObjectHideFlags: 0
@@ -526,11 +527,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7bc7d7721a34127a9af2092ba26632, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starPrefabs:
-  - turbulence: 2
-    directionalVelocity: {x: 0, y: 2}
-  - turbulence: 0.5
-    directionalVelocity: {x: 0, y: -0.2}
   starInstances: []
   starPositions: []
 --- !u!4 &1173228449
