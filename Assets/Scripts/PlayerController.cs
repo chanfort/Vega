@@ -5,7 +5,7 @@ namespace Vega
     public class PlayerController : MonoBehaviour
     {
         public float speed = 3f;
-        public float starCreationCooldown = 0.3f;
+        public float starCreationCooldown = 0.02f;
         float currentCooldown;
 
         public KeyCode moveLeft = KeyCode.A;
@@ -18,7 +18,7 @@ namespace Vega
 
         void Start()
         {
-            transform.position = new Vector2(0f, GameBounds.instance.minY + 0.5f);
+            transform.position = new Vector2(transform.position.x, GameBounds.instance.minY + 0.5f);
             AnnihilationSystem.instance.player = transform;
         }
 
