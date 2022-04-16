@@ -48,6 +48,7 @@
      <Compile Include="Assets/Scripts/GameOverScreen.cs" />
      <Compile Include="Assets/Scripts/MenuScreen.cs" />
      <Compile Include="Assets/Scripts/IntroScreen.cs" />
+     <None Include="Assets/Texts/Intro.txt" />
     <Reference Include="UnityEngine">
         <HintPath>/Applications/Unity/Hub/Editor/2021.1.28f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
