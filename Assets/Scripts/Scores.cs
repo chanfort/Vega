@@ -20,5 +20,10 @@ namespace Vega
             score++;
             text.text = score.ToString();
         }
+
+        public int GetScore()
+        {
+            return score;
+        }
     }
 }

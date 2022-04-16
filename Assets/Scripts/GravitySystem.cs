@@ -9,6 +9,8 @@ namespace Vega
 {
     public class GravitySystem : MonoBehaviour
     {
+        bool useRegular;
+
         void Start()
         {
 
@@ -16,7 +18,19 @@ namespace Vega
 
         void Update()
         {
-            UpdateRegular();
+            if(Input.GetKeyDown(KeyCode.G))
+            {
+                useRegular = !useRegular;
+            }
+
+            if(useRegular)
+            {
+                UpdateRegular();
+            }
+            else
+            {
+                UpdateJobified();
+            }
         }
 
         void UpdateJobified()

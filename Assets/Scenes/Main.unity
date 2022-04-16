@@ -5736,7 +5736,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starCreationCooldown: 0.02
-  maxStars: 400
+  minStars: 400
+  maxStars: 4000
+  maxScore: 50000
 --- !u!114 &2076277678892597374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5751,6 +5753,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   starCreationCooldown: 0.02
+  moveLeft: 97
+  moveRight: 100
+  shoot: 101
 --- !u!4 &2286137349771393814
 Transform:
   m_ObjectHideFlags: 0

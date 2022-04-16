@@ -8,6 +8,10 @@ namespace Vega
         public float starCreationCooldown = 0.3f;
         float currentCooldown;
 
+        public KeyCode moveLeft = KeyCode.A;
+        public KeyCode moveRight = KeyCode.D;
+        public KeyCode shoot = KeyCode.E;
+
         void Start()
         {
             transform.position = new Vector2(0f, GameBounds.instance.minY + 0.5f);
@@ -24,12 +28,12 @@ namespace Vega
         {
             Vector2 v = Vector2.zero;
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(moveLeft))
             {
                 v += new Vector2(-1f, 0f) * dt * speed;
             }
 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(moveRight))
             {
                 v += new Vector2(1f, 0f) * dt * speed;
             }
@@ -53,7 +57,7 @@ namespace Vega
         {
             currentCooldown -= dt;
 
-            if(currentCooldown < 0f && Input.GetKey(KeyCode.Space))
+            if(currentCooldown < 0f && Input.GetKey(shoot))
             {
                 currentCooldown = starCreationCooldown;
                 StarSystem.instance.Add(0, transform.position);
