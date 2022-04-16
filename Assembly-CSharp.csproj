@@ -36,7 +36,6 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets/Scripts/GameOver.cs" />
      <Compile Include="Assets/Scripts/GravitySystem.cs" />
      <Compile Include="Assets/Scripts/AiController.cs" />
      <Compile Include="Assets/Scripts/Scores.cs" />
@@ -46,6 +45,9 @@
      <Compile Include="Assets/Scripts/StarController.cs" />
      <Compile Include="Assets/Scripts/StarSystem.cs" />
      <Compile Include="Assets/Scripts/PlayerController.cs" />
+     <Compile Include="Assets/Scripts/GameOverScreen.cs" />
+     <Compile Include="Assets/Scripts/MenuScreen.cs" />
+     <Compile Include="Assets/Scripts/IntroScreen.cs" />
     <Reference Include="UnityEngine">
         <HintPath>/Applications/Unity/Hub/Editor/2021.1.28f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Vega
 {
@@ -83,7 +84,8 @@ namespace Vega
             )
             {
                 Destroy(player.gameObject);
-                GameOver.instance.TriggerGameOver();
+                //GameOver.instance.TriggerGameOver();
+                SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
             }
         }
 
