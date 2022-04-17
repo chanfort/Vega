@@ -145,7 +145,7 @@ namespace Vega
                     }
                 }
 
-                if (nMatter == 0 || nMatter == 0)
+                if (nAntimatter == 0 || nMatter == 0)
                 {
                     SetGameOverText();
                     SceneManager.LoadScene("GameOver", LoadSceneMode.Single);

@@ -20,7 +20,18 @@ namespace Vega
 
         void Start()
         {
-            transform.position = new Vector2(transform.position.x, GameBounds.instance.minY + 0.5f);
+            float y = 0f;
+
+            if (transform.position.y > 0)
+            {
+                y = GameBounds.instance.maxY - 0.5f;
+            }
+            else
+            {
+                y = GameBounds.instance.minY + 0.5f;
+            }
+
+            transform.position = new Vector2(transform.position.x, y);
             AnnihilationSystem.instance.players.Add(this);
         }
 
