@@ -19,7 +19,7 @@ namespace Vega
         void Start()
         {
             transform.position = new Vector2(transform.position.x, GameBounds.instance.minY + 0.5f);
-            AnnihilationSystem.instance.player = transform;
+            AnnihilationSystem.instance.player.Add(transform);
         }
 
         void Update()

@@ -14,7 +14,7 @@ namespace Vega
         public List<StarController> antimatterStars = new List<StarController>();
 
         Vector2[] antimatterPoints;
-        public Transform player;
+        public List<Transform> player;
 
         void Awake()
         {
@@ -41,7 +41,7 @@ namespace Vega
 
             int nMatter = matterStars.Count;
 
-            if(nMatter == 0)
+            if (nMatter == 0)
             {
                 return;
             }
@@ -64,28 +64,36 @@ namespace Vega
                 }
             }
 
-            
+
             StarSystem.instance.RemoveAnnihilated();
         }
 
         void CheckForGameOver(KdTree tree)
         {
-            if(player == null)
+            if (player == null)
             {
                 return;
             }
 
-            Vector2 pos = player.position;
-            int neighbour = tree.FindNearest(pos);
-
-            if (
-                neighbour != -1 &&
-                (antimatterPoints[neighbour] - pos).sqrMagnitude < 0.02f
-            )
+            for (int i = 0; i < player.Count; i++)
             {
-                Destroy(player.gameObject);
-                //GameOver.instance.TriggerGameOver();
-                SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+                Transform pl = player[i];
+                Vector2 pos = pl.position;
+                int neighbour = tree.FindNearest(pos);
+
+                if (
+                    neighbour != -1 &&
+                    (antimatterPoints[neighbour] - pos).sqrMagnitude < 0.02f
+                )
+                {
+                    player.Remove(pl);
+                    Destroy(pl.gameObject);
+
+                    if (player.Count == 0)
+                    {
+                        SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+                    }
+                }
             }
         }
 
