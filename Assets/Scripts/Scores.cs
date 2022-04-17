@@ -7,6 +7,7 @@ namespace Vega
     {
         public static Scores instance;
 
+        public string[] resultsForGameOver;
         public Text[] texts;
         public int[] score;
 

@@ -676,6 +676,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4350784a81b34d7cae99e0fb93d1826, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resultsForGameOver:
+  - Score
   texts:
   - {fileID: 1735810682}
   score: 00000000

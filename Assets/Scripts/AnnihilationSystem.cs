@@ -66,7 +66,7 @@ namespace Vega
                     EmitFlash((antimatterPoints[neighbour] + pos) / 2f);
 
                     Scores.instance.AddToScore(matterStars[i].playerId);
-                    Scores.instance.AddToScore(antimatterStars[i].playerId);
+                    Scores.instance.AddToScore(antimatterStars[neighbour].playerId);
                 }
             }
 
@@ -124,6 +124,7 @@ namespace Vega
             {
                 if (players.Count == 0)
                 {
+                    SetGameOverText();
                     SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
                 }
             }
@@ -146,9 +147,22 @@ namespace Vega
 
                 if (nMatter == 0 || nMatter == 0)
                 {
+                    SetGameOverText();
                     SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
                 }
             }
+        }
+
+        void SetGameOverText()
+        {
+            string gameOverText = string.Empty;
+
+            for(int i=0; i<Scores.instance.resultsForGameOver.Length; i++)
+            {
+                gameOverText += $"{Scores.instance.resultsForGameOver[i]} : {Scores.instance.score[i]}\n";
+            }
+
+            GameOverScreen.resultsToShow = gameOverText;
         }
 
         void EmitFlash(Vector2 pos)
