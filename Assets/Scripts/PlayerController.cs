@@ -62,7 +62,7 @@ namespace Vega
         {
             currentCooldown -= dt;
 
-            if(currentCooldown < 0f && Input.GetKey(shoot))
+            if (currentCooldown < 0f && Input.GetKey(shoot))
             {
                 currentCooldown = starCreationCooldown;
                 StarSystem.instance.Add(transform.position, prefab, directionalVelocity, turbulence, isAntimatter);

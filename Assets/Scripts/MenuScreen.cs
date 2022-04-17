@@ -9,5 +9,10 @@ namespace Vega
         {
             SceneManager.LoadScene("SinglePlayer", LoadSceneMode.Single);
         }
+
+        public void Open2vAI()
+        {
+            SceneManager.LoadScene("2vAI", LoadSceneMode.Single);
+        }
     }
 }

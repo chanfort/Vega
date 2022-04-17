@@ -31,7 +31,7 @@ namespace Vega
 
             float scoreFraction = Scores.instance.GetScore() * 1f / maxScore;
 
-            if(scoreFraction > 1f)
+            if (scoreFraction > 1f)
             {
                 scoreFraction = 1f;
             }

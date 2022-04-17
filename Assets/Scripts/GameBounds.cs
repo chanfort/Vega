@@ -34,6 +34,8 @@ namespace Vega
                 minY = -camSize * ratio;
                 maxY = camSize * ratio;
             }
+
+            Application.targetFrameRate = 60;
         }
     }
 }

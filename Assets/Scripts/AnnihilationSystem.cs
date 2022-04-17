@@ -14,6 +14,7 @@ namespace Vega
         public List<StarController> antimatterStars = new List<StarController>();
 
         Vector2[] antimatterPoints;
+        Vector2[] matterPoints;
         public List<PlayerController> players = new List<PlayerController>();
         public AiController aiController;
 
@@ -21,28 +22,30 @@ namespace Vega
         {
             instance = this;
             antimatterPoints = new Vector2[0];
+            matterPoints = new Vector2[0];
         }
 
         void Update()
         {
             int nAntimatter = antimatterStars.Count;
-
-            if (nAntimatter == 0)
-            {
-                return;
-            }
+            int nMatter = matterStars.Count;
 
             for (int i = 0; i < nAntimatter; i++)
             {
                 antimatterPoints[i] = antimatterStars[i].transform.position;
             }
 
-            KdTree tree = KdTree.MakeFromPoints(antimatterPoints);
-            CheckForPlayerDefeat(tree);
+            for (int i = 0; i < nMatter; i++)
+            {
+                matterPoints[i] = matterStars[i].transform.position;
+            }
 
-            int nMatter = matterStars.Count;
+            KdTree antiMatterTree = KdTree.MakeFromPoints(antimatterPoints);
+            KdTree matterTree = KdTree.MakeFromPoints(matterPoints);
 
-            if (nMatter == 0)
+            CheckForMatterPlayerDefeat(antiMatterTree, matterTree);
+
+            if (nAntimatter == 0 || nMatter == 0)
             {
                 return;
             }
@@ -50,7 +53,7 @@ namespace Vega
             for (int i = 0; i < nMatter; i++)
             {
                 Vector2 pos = matterStars[i].transform.position;
-                int neighbour = tree.FindNearest(pos);
+                int neighbour = antiMatterTree.FindNearest(pos);
 
                 if (
                     neighbour != -1 &&
@@ -65,26 +68,50 @@ namespace Vega
                 }
             }
 
-
             StarSystem.instance.RemoveAnnihilated();
         }
 
-        void CheckForPlayerDefeat(KdTree tree)
+        void CheckForMatterPlayerDefeat(KdTree antiMatterTree, KdTree matterTree)
         {
             for (int i = 0; i < players.Count; i++)
             {
                 PlayerController pl = players[i];
-                Vector2 pos = pl.transform.position;
-                int neighbour = tree.FindNearest(pos);
 
-                if (
-                    neighbour != -1 &&
-                    (antimatterPoints[neighbour] - pos).sqrMagnitude < 0.02f
-                )
+                if (!pl.isAntimatter)
                 {
-                    players.Remove(pl);
-                    Destroy(pl.gameObject);
-                    CheckForGameOver();
+                    if (antiMatterTree != null)
+                    {
+                        Vector2 pos = pl.transform.position;
+                        int neighbour = antiMatterTree.FindNearest(pos);
+
+                        if (
+                            neighbour != -1 &&
+                            (antimatterPoints[neighbour] - pos).sqrMagnitude < 0.02f
+                        )
+                        {
+                            players.Remove(pl);
+                            Destroy(pl.gameObject);
+                            CheckForGameOver();
+                        }
+                    }
+                }
+                else
+                {
+                    if (matterTree != null)
+                    {
+                        Vector2 pos = pl.transform.position;
+                        int neighbour = matterTree.FindNearest(pos);
+
+                        if (
+                            neighbour != -1 &&
+                            (matterPoints[neighbour] - pos).sqrMagnitude < 0.02f
+                        )
+                        {
+                            players.Remove(pl);
+                            Destroy(pl.gameObject);
+                            CheckForGameOver();
+                        }
+                    }
                 }
             }
         }
@@ -103,9 +130,9 @@ namespace Vega
                 int nMatter = 0;
                 int nAntimatter = 0;
 
-                for(int i = 0; i < players.Count; i++)
+                for (int i = 0; i < players.Count; i++)
                 {
-                    if(players[i].isAntimatter)
+                    if (players[i].isAntimatter)
                     {
                         nAntimatter++;
                     }
@@ -115,7 +142,7 @@ namespace Vega
                     }
                 }
 
-                if(nMatter == 0 || nMatter == 0)
+                if (nMatter == 0 || nMatter == 0)
                 {
                     SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
                 }
@@ -146,6 +173,7 @@ namespace Vega
             }
 
             antimatterPoints = new Vector2[antimatterStars.Count];
+            matterPoints = new Vector2[matterStars.Count];
         }
 
         public void Remove(StarController star)
@@ -160,6 +188,7 @@ namespace Vega
             }
 
             antimatterPoints = new Vector2[antimatterStars.Count];
+            matterPoints = new Vector2[matterStars.Count];
         }
     }
 }

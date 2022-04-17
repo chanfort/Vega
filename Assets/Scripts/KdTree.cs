@@ -38,6 +38,11 @@ namespace Vega
         //	Make a new tree from a list of points.
         public static KdTree MakeFromPoints(params Vector2[] points)
         {
+            if (points.Length == 0)
+            {
+                return null;
+            }
+
             int[] indices = Iota(points.Length);
             return MakeFromPointsInner(0, 0, points.Length - 1, points, indices);
         }
