@@ -63,14 +63,65 @@ namespace Vega
                     matterStars[i].markAnnihilated = true;
                     antimatterStars[neighbour].markAnnihilated = true;
 
-                    EmitFlash((antimatterPoints[neighbour] + pos) / 2f);
-
-                    Scores.instance.AddToScore(matterStars[i].playerId);
-                    Scores.instance.AddToScore(antimatterStars[neighbour].playerId);
+                    Vector2 flashPosition = (antimatterPoints[neighbour] + pos) / 2f;
+                    EmitFlash(flashPosition);
+                    UpdateScores(matterStars[i], antimatterStars[neighbour], flashPosition);
                 }
             }
 
             StarSystem.instance.RemoveAnnihilated();
+        }
+
+        void UpdateScores(StarController matterStar, StarController antimatterStar, Vector2 flashPosition)
+        {
+            if (matterStar.playerId == -1 || antimatterStar.playerId == -1)
+            {
+                Scores.instance.AddToScore(matterStar.playerId);
+                Scores.instance.AddToScore(antimatterStar.playerId);
+            }
+            else
+            {
+                PlayerController matterPlayer = null;
+                PlayerController antimatterPlayer = null;
+
+                for (int i = 0; i < players.Count; i++)
+                {
+                    if (players[i].playerId == matterStar.playerId)
+                    {
+                        matterPlayer = players[i];
+                    }
+                    if (players[i].playerId == antimatterStar.playerId)
+                    {
+                        antimatterPlayer = players[i];
+                    }
+                }
+
+                if (matterPlayer == null)
+                {
+                    Scores.instance.AddToScore(antimatterStar.playerId);
+                }
+                else if (antimatterPlayer == null)
+                {
+                    Scores.instance.AddToScore(matterStar.playerId);
+                }
+                else
+                {
+                    Vector2 matterPlayerPos = matterPlayer.transform.position;
+                    Vector2 antimatterPlayerPos = antimatterPlayer.transform.position;
+
+                    float rMatter = (flashPosition - matterPlayerPos).sqrMagnitude;
+                    float rAntimatter = (flashPosition - antimatterPlayerPos).sqrMagnitude;
+
+                    if (rMatter > rAntimatter)
+                    {
+                        Scores.instance.AddToScore(matterStar.playerId);
+                    }
+                    else
+                    {
+                        Scores.instance.AddToScore(antimatterStar.playerId);
+                    }
+                }
+            }
         }
 
         void CheckForMatterPlayerDefeat(KdTree antiMatterTree, KdTree matterTree)
@@ -157,7 +208,7 @@ namespace Vega
         {
             string gameOverText = string.Empty;
 
-            for(int i=0; i<Scores.instance.resultsForGameOver.Length; i++)
+            for (int i = 0; i < Scores.instance.resultsForGameOver.Length; i++)
             {
                 gameOverText += $"{Scores.instance.resultsForGameOver[i]} : {Scores.instance.score[i]}\n";
             }
