@@ -14,7 +14,8 @@ namespace Vega
         public List<StarController> antimatterStars = new List<StarController>();
 
         Vector2[] antimatterPoints;
-        public List<Transform> player;
+        public List<PlayerController> players = new List<PlayerController>();
+        public AiController aiController;
 
         void Awake()
         {
@@ -37,7 +38,7 @@ namespace Vega
             }
 
             KdTree tree = KdTree.MakeFromPoints(antimatterPoints);
-            CheckForGameOver(tree);
+            CheckForPlayerDefeat(tree);
 
             int nMatter = matterStars.Count;
 
@@ -68,17 +69,12 @@ namespace Vega
             StarSystem.instance.RemoveAnnihilated();
         }
 
-        void CheckForGameOver(KdTree tree)
+        void CheckForPlayerDefeat(KdTree tree)
         {
-            if (player == null)
+            for (int i = 0; i < players.Count; i++)
             {
-                return;
-            }
-
-            for (int i = 0; i < player.Count; i++)
-            {
-                Transform pl = player[i];
-                Vector2 pos = pl.position;
+                PlayerController pl = players[i];
+                Vector2 pos = pl.transform.position;
                 int neighbour = tree.FindNearest(pos);
 
                 if (
@@ -86,13 +82,42 @@ namespace Vega
                     (antimatterPoints[neighbour] - pos).sqrMagnitude < 0.02f
                 )
                 {
-                    player.Remove(pl);
+                    players.Remove(pl);
                     Destroy(pl.gameObject);
+                    CheckForGameOver();
+                }
+            }
+        }
 
-                    if (player.Count == 0)
+        void CheckForGameOver()
+        {
+            if (aiController != null)
+            {
+                if (players.Count == 0)
+                {
+                    SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+                }
+            }
+            else
+            {
+                int nMatter = 0;
+                int nAntimatter = 0;
+
+                for(int i = 0; i < players.Count; i++)
+                {
+                    if(players[i].isAntimatter)
                     {
-                        SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
+                        nAntimatter++;
                     }
+                    else
+                    {
+                        nMatter++;
+                    }
+                }
+
+                if(nMatter == 0 || nMatter == 0)
+                {
+                    SceneManager.LoadScene("GameOver", LoadSceneMode.Single);
                 }
             }
         }

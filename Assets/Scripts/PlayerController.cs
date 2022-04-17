@@ -15,11 +15,12 @@ namespace Vega
         public StarController prefab;
         public Vector2 directionalVelocity;
         public float turbulence;
+        public bool isAntimatter;
 
         void Start()
         {
             transform.position = new Vector2(transform.position.x, GameBounds.instance.minY + 0.5f);
-            AnnihilationSystem.instance.player.Add(transform);
+            AnnihilationSystem.instance.players.Add(this);
         }
 
         void Update()
@@ -64,7 +65,7 @@ namespace Vega
             if(currentCooldown < 0f && Input.GetKey(shoot))
             {
                 currentCooldown = starCreationCooldown;
-                StarSystem.instance.Add(transform.position, prefab, directionalVelocity, turbulence);
+                StarSystem.instance.Add(transform.position, prefab, directionalVelocity, turbulence, isAntimatter);
             }
         }
     }
