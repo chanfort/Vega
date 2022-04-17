@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PvP.unity
     guid: 467fb51ca87954b1aa0fdc49d813dcaf
   - enabled: 1
+    path: Assets/Scenes/DotsTest.unity
+    guid: e3dcb03011691478aabc31dd65b4b85a
+  - enabled: 1
     path: Assets/Scenes/GameOver.unity
     guid: d3ed12ac19f2e402dbb09bd509824826
   m_configObjects: {}

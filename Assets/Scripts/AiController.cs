@@ -4,7 +4,9 @@ namespace Vega
 {
     public class AiController : MonoBehaviour
     {
-        public float starCreationCooldown = 0.02f;
+        public float minCooldown = 0.1f;
+        public float maxCooldown = 0.02f;
+
         float currentCooldown;
 
         public int minStars = 400;
@@ -12,7 +14,8 @@ namespace Vega
         public int maxScore = 50000;
 
         public StarController prefab;
-        public Vector2 directionalVelocity;
+        public Vector2 minDirectionalVelocity = new Vector2(0f, -0.2f);
+        public Vector2 maxDirectionalVelocity = new Vector2(0f, -0.5f);
         public float turbulence;
 
         void Start()
@@ -37,10 +40,11 @@ namespace Vega
             }
 
             float starLimit = Mathf.Lerp(minStars, maxStars, scoreFraction);
+            Vector2 directionalVelocity = Vector2.Lerp(minDirectionalVelocity, maxDirectionalVelocity, scoreFraction);
 
             if (currentCooldown < 0f && AnnihilationSystem.instance.antimatterStars.Count <= starLimit)
             {
-                currentCooldown = starCreationCooldown;
+                currentCooldown = Mathf.Lerp(minCooldown, maxCooldown, scoreFraction);
                 Vector2 pos = new Vector2(Random.Range(GameBounds.instance.minX, GameBounds.instance.maxX), GameBounds.instance.maxY);
                 StarSystem.instance.Add(pos, prefab, directionalVelocity, turbulence, true, -1);
             }

@@ -9,8 +9,9 @@ namespace Vega
 {
     public class GravitySystem : MonoBehaviour
     {
+        public bool canSwitchToRegular;
         bool useRegular;
-        public float forceCoeficient = 0.001f;
+        public float forceCoeficient = 0.02f;
 
         void Start()
         {
@@ -19,22 +20,24 @@ namespace Vega
 
         void Update()
         {
-            if(Input.GetKeyDown(KeyCode.G))
+            if (canSwitchToRegular && Input.GetKeyDown(KeyCode.G))
             {
                 useRegular = !useRegular;
             }
 
-            if(useRegular)
+            float dt = Time.deltaTime;
+
+            if (useRegular)
             {
-                UpdateRegular();
+                UpdateRegular(dt);
             }
             else
             {
-                UpdateJobified();
+                UpdateJobified(dt);
             }
         }
 
-        void UpdateJobified()
+        void UpdateJobified(float dt)
         {
             List<Vector2> instancePositions = StarSystem.instance.starPositions;
             List<StarController> instances = StarSystem.instance.starInstances;
@@ -55,7 +58,8 @@ namespace Vega
                 positions = positions,
                 velocities = velocities,
                 nTotal = n,
-                forceCoeficient = forceCoeficient
+                forceCoeficient = forceCoeficient,
+                dt = dt
             }.Schedule(n, System.Environment.ProcessorCount).Complete();
 
             for (int i = 0; i < n; i++)
@@ -67,7 +71,7 @@ namespace Vega
             velocities.Dispose();
         }
 
-        void UpdateRegular()
+        void UpdateRegular(float dt)
         {
             List<Vector2> instancePositions = StarSystem.instance.starPositions;
             List<StarController> instances = StarSystem.instance.starInstances;
@@ -93,18 +97,18 @@ namespace Vega
                     }
                 }
 
-                float timestep = 0.5f;
-                instances[i].velocity += timestep * forceCoeficient * dv;
+                instances[i].velocity += dt * forceCoeficient * dv;
             }
         }
 
         [BurstCompile]
         struct CalculateStep : IJobParallelFor
         {
-            [NativeDisableParallelForRestriction] [ReadOnly] public NativeArray<float2> positions;
+            [NativeDisableParallelForRestriction][ReadOnly] public NativeArray<float2> positions;
             [NativeDisableParallelForRestriction] public NativeArray<float2> velocities;
             [ReadOnly] public int nTotal;
             [ReadOnly] public float forceCoeficient;
+            [ReadOnly] public float dt;
 
             public void Execute(int i)
             {
@@ -124,8 +128,7 @@ namespace Vega
                     }
                 }
 
-                float timestep = 0.5f;
-                velocities[i] += timestep * forceCoeficient * dv;
+                velocities[i] += dt * forceCoeficient * dv;
             }
         }
     }

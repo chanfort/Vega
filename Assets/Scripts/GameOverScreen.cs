@@ -21,12 +21,9 @@ namespace Vega
             }
         }
 
-        void Update()
+        public void ReturnToMainMenu()
         {
-            if (Input.anyKeyDown)
-            {
-                SceneManager.LoadScene("Menu", LoadSceneMode.Single);
-            }
+            SceneManager.LoadScene("Menu", LoadSceneMode.Single);
         }
     }
 }

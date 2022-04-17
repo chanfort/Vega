@@ -19,5 +19,10 @@ namespace Vega
         {
             SceneManager.LoadScene("PvP", LoadSceneMode.Single);
         }
+
+        public void OpenDotsTest()
+        {
+            SceneManager.LoadScene("DotsTest", LoadSceneMode.Single);
+        }
     }
 }
