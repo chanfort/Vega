@@ -64,7 +64,9 @@ namespace Vega
                     antimatterStars[neighbour].markAnnihilated = true;
 
                     EmitFlash((antimatterPoints[neighbour] + pos) / 2f);
-                    Scores.instance.AddToScore();
+
+                    Scores.instance.AddToScore(matterStars[i].playerId);
+                    Scores.instance.AddToScore(antimatterStars[i].playerId);
                 }
             }
 

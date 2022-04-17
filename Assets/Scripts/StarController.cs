@@ -9,5 +9,6 @@ namespace Vega
 
         public int starSystemIndex;
         public bool markAnnihilated;
+        public int playerId;
     }
 }

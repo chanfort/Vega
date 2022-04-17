@@ -42,7 +42,7 @@ namespace Vega
             {
                 currentCooldown = starCreationCooldown;
                 Vector2 pos = new Vector2(Random.Range(GameBounds.instance.minX, GameBounds.instance.maxX), GameBounds.instance.maxY);
-                StarSystem.instance.Add(pos, prefab, directionalVelocity, turbulence, true);
+                StarSystem.instance.Add(pos, prefab, directionalVelocity, turbulence, true, -1);
             }
         }
     }

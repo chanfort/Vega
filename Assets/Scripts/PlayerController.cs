@@ -16,6 +16,7 @@ namespace Vega
         public Vector2 directionalVelocity;
         public float turbulence;
         public bool isAntimatter;
+        public int playerId;
 
         void Start()
         {
@@ -65,7 +66,7 @@ namespace Vega
             if (currentCooldown < 0f && Input.GetKey(shoot))
             {
                 currentCooldown = starCreationCooldown;
-                StarSystem.instance.Add(transform.position, prefab, directionalVelocity, turbulence, isAntimatter);
+                StarSystem.instance.Add(transform.position, prefab, directionalVelocity, turbulence, isAntimatter, playerId);
             }
         }
     }

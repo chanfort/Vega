@@ -53,12 +53,13 @@ namespace Vega
             }
         }
 
-        public void Add(Vector3 pos, StarController starPrefab, Vector2 directionalVelocity, float turbulence, bool isAntimatter)
+        public void Add(Vector3 pos, StarController starPrefab, Vector2 directionalVelocity, float turbulence, bool isAntimatter, int playerId)
         {
             StarController star = Instantiate(starPrefab, pos, Quaternion.identity);
             star.starSystemIndex = starInstances.Count;
             star.velocity = directionalVelocity + Random.insideUnitCircle * turbulence;
             star.isAntimatter = isAntimatter;
+            star.playerId = playerId;
 
             starInstances.Add(star);
             starPositions.Add(pos);
