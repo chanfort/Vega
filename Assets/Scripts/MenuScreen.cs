@@ -14,5 +14,10 @@ namespace Vega
         {
             SceneManager.LoadScene("2vAI", LoadSceneMode.Single);
         }
+
+        public void OpenPvP()
+        {
+            SceneManager.LoadScene("PvP", LoadSceneMode.Single);
+        }
     }
 }
