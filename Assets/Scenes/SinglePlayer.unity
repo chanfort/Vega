@@ -573,6 +573,7 @@ GameObject:
   - component: {fileID: 1184607822}
   - component: {fileID: 1184607821}
   - component: {fileID: 1184607820}
+  - component: {fileID: 1184607824}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -663,6 +664,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1184607824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184607819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4350784a81b34d7cae99e0fb93d1826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texts:
+  - {fileID: 1735810682}
+  score: 00000000
 --- !u!1 &1279947414
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,7 +778,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionFlash: {fileID: 1609829118}
   antimatterStars: []
-  player: {fileID: 0}
+  players: []
+  aiController: {fileID: 0}
 --- !u!4 &1609829116
 Transform:
   m_ObjectHideFlags: 0
@@ -5562,7 +5579,6 @@ GameObject:
   - component: {fileID: 1735810681}
   - component: {fileID: 1735810683}
   - component: {fileID: 1735810682}
-  - component: {fileID: 1735810684}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -5631,19 +5647,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735810680}
   m_CullTransparentMesh: 1
---- !u!114 &1735810684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735810680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4350784a81b34d7cae99e0fb93d1826, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 1735810682}
 --- !u!1 &1755980593
 GameObject:
   m_ObjectHideFlags: 0
@@ -5816,6 +5819,8 @@ MonoBehaviour:
   prefab: {fileID: 6206446229154653885, guid: 006ac737829494e1fb0e80894fe17134, type: 3}
   directionalVelocity: {x: 0, y: 2}
   turbulence: 2
+  isAntimatter: 0
+  playerId: 0
 --- !u!4 &2286137349771393814
 Transform:
   m_ObjectHideFlags: 0
