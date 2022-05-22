@@ -5820,7 +5820,7 @@ MonoBehaviour:
   starCreationCooldown: 0.02
   moveLeft: 97
   moveRight: 100
-  shoot: 101
+  shoot: 119
   prefab: {fileID: 6206446229154653885, guid: 006ac737829494e1fb0e80894fe17134, type: 3}
   directionalVelocity: {x: 0, y: 2}
   turbulence: 2
